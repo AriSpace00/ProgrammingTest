@@ -1,57 +1,64 @@
 #include <iostream>
 #include <list>
 #include <string>
-
 using namespace std;
 
-int main() 
+int main()
 {
     int size = 0;
     cin >> size;
 
     for (int i = 0; i < size; i++)
     {
-        list<char> tempList = {};
-        auto cursorIt = tempList.begin();
+        list<char> output;
+        auto cursor = output.begin();
 
-        string temp;
-        cin >> temp;
-        for (auto c : temp)
+        string str;
+        cin >> str;
+
+        for (char c : str)
         {
-            if (c == '<')
+            switch (c)
             {
-                if (cursorIt != tempList.begin())
+            case '<':
+            {
+                if (cursor != output.begin())
                 {
-                    --cursorIt;
+                    cursor--;
                 }
             }
-            else if (c == '>')
+            break;
+            case '>':
             {
-                if (cursorIt != tempList.end())
+                if (cursor != output.end())
                 {
-                    ++cursorIt;
+                    cursor++;
                 }
             }
-            else if (c == '-')
+            break;
+            case '-':
             {
-                if (cursorIt != tempList.begin())
+                if (cursor != output.begin())
                 {
-                    --cursorIt;
-                    cursorIt = tempList.erase(cursorIt);
+                    cursor--;
+                    cursor = output.erase(cursor);
                 }
             }
-            else
+            break;
+            default:
             {
-                tempList.insert(cursorIt, c);
+                output.insert(cursor, c);
+            }
+            break;
             }
         }
 
-        for (auto c : tempList)
+        for (char c : output)
         {
             cout << c;
         }
 
-        cout << endl;
+        cout << "\n";
     }
 
     return 0;
