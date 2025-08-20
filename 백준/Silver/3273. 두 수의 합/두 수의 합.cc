@@ -1,41 +1,38 @@
 #include <iostream>
 #include <vector>
-
 using namespace std;
-
-bool visitedArr[1000001];
 
 int main()
 {
-	// 수열 크기 입력
-	int size = 0;
-	cin >> size;
+    int n = 0;
+    cin >> n;
 
-	// 수열에 들어갈 숫자 입력
-	int temp = 0;
-	vector<int> tempArr(size, 0);
-	for (int i = 0; i < size; i++)
-	{
-		cin >> temp;
-		tempArr[i] = temp;
-	}
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
 
-	// 두 자연수의 합 입력
-	cin >> temp;
+    bool frequency[1000001] = {};
+    for (int i = 0; i < n; i++)
+    {
+        frequency[arr[i]] = true;
+    }
 
-	int count = 0;
-	for (int i = 0; i < size; i++)
-	{
-		int complement = temp - tempArr[i];
-		if (complement > 0 && complement <= 1000000 && visitedArr[complement])
-		{
-			count++;
-		}
+    int add = 0;
+    cin >> add;
 
-		visitedArr[tempArr[i]] = true;
-	}
+    int count = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int complement = add - arr[i];
+        if (complement > 0 && complement <= 1000000 && frequency[complement])
+        {
+            count++;
+        }
+    }
 
-	cout << count;
+    cout << count / 2;
 
-	return 0;
+    return 0;
 }
