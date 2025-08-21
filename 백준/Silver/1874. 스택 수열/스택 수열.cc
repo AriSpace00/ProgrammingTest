@@ -6,45 +6,45 @@ using namespace std;
 
 int main()
 {
-	int size = 0;
-	cin >> size;
+    int n = 0;
+    cin >> n;
 
-	vector<int> tempArr(size, 0);
-	for (int i = 0; i < size; i++)
-	{
-		int temp = 0;
-		cin >> temp;
-		tempArr[i] = temp;
-	}
+    vector<int> permutation(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> permutation[i];
+    }
 
-	stack<int> tempStack;
-	vector<string> output;
-	int pushNum = 0;
-	for (int i = 0; i < tempArr.size(); i++)
-	{
-		while (tempArr[i] > pushNum)
-		{
-			pushNum++;
-			tempStack.push(pushNum);
-			output.push_back("+");
-		}
-		
-		if (!tempStack.empty() && tempStack.top() == tempArr[i])
-		{
-			tempStack.pop();
-			output.push_back("-");
-		}
-		else
-		{
-			cout << "NO" << "\n";
-			return 0;
-		}
-	}
+    stack<int> st;
+    vector<char> output;
+    int current = 0;
+    for (int i = 0; i < n; i++)
+    {
+        while (current < permutation[i])
+        {
+            st.push(++current);
+            output.push_back('+');
+        }
 
-	for (string s : output)
-	{
-		cout << s << "\n";
-	}
+        if (st.top() == permutation[i])
+        {
+            st.pop();
+            output.push_back('-');
+        }
+        else
+        {
+            cout << "NO";
+            return 0;
+        }
+    }
 
-	return 0;
+    if (!output.empty())
+    {
+        for (char c : output)
+        {
+            cout << c << '\n';
+        }
+    }
+
+    return 0;
 }
