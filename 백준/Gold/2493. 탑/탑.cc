@@ -1,38 +1,38 @@
 #include <iostream>
 #include <stack>
-
 using namespace std;
 
 int main()
 {
-    ios_base::sync_with_stdio(0); 
-    cin.tie(0); 
-    cout.tie(0);
-
-    int size = 0;
-    cin >> size;
-
-    stack<pair<int, int>> info;  
-    for (int i = 0; i < size; i++)
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int n = 0;
+    cin >> n;
+    
+    stack<pair<int, int>> st;
+    for (int i=0; i<n; i++)
     {
         int temp = 0;
         cin >> temp;
-        while (!info.empty() && info.top().second < temp)
+        
+        while (!st.empty() && st.top().second < temp)
         {
-            info.pop();
+            st.pop();
         }
-
-        if (info.empty())
+        
+        if (st.empty())
         {
             cout << "0 ";
         }
         else
         {
-            cout << info.top().first + 1 << " "; 
+            cout << st.top().first + 1 << ' ';
         }
-
-        info.push(make_pair(i, temp));
+        
+        st.push(make_pair(i, temp));
     }
-
+    
     return 0;
 }
+    
