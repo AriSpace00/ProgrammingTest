@@ -1,60 +1,54 @@
 #include <iostream>
 #include <deque>
 #include <algorithm>
-
 using namespace std;
 
 int main()
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+	int n = 0, m = 0;
+	cin >> n >> m;
 
-    int N, M = 0;
-    cin >> N;
-    cin >> M;
+	deque<int> field;
+	for (int i = 0; i < n; i++)
+	{
+		field.push_back(i);
+	}
 
-    deque<int> dequeArr;
-    for (int i = 0; i < N; i++)
-    {
-        dequeArr.push_back(i + 1);
-    }
+	int totalCount = 0;
+	for (int i = 0; i < m; i++)
+	{
+		int current = 0;
+		cin >> current;
+		--current;
 
-    int count = 0;
-    for (int i = 0; i < M; i++)
-    {
-        int temp = 0;
-        cin >> temp;
+		int currentIndex = find(field.begin(), field.end(), current) - field.begin();
+		int leftCount = currentIndex;
+		int rightCount = field.size() - currentIndex;
 
-        int index = find(dequeArr.begin(), dequeArr.end(), temp) - dequeArr.begin();
-        int leftMoves = index;
-        int rightMoves = dequeArr.size() - index;
+		// 왼쪽으로 회전
+		if (leftCount <= rightCount)
+		{
+			while (field.front() != current)
+			{
+				field.push_back(field.front());
+				field.pop_front();
+				totalCount++;
+			}
+		}
+		else
+		{
+			while (field.front() != current)
+			{
+				field.push_front(field.back());
+				field.pop_back();
+				totalCount++;
+			}
+		}
+		
+		field.pop_front();
+	}
 
-        if (leftMoves <= rightMoves)
-        {
-            for (int j = 0; j < leftMoves; j++)
-            {
-                dequeArr.push_back(dequeArr.front());
-                dequeArr.pop_front();
-            }
+	cout << totalCount;
 
-            count += leftMoves;
-        }
-        else
-        {
-            for (int j = 0; j < rightMoves; j++)
-            {
-                dequeArr.push_front(dequeArr.back());
-                dequeArr.pop_back();
-            }
-
-            count += rightMoves;
-        }
-
-        dequeArr.pop_front();
-    }
-
-    cout << count;
-    
-    return 0;
+	return 0;
 }
