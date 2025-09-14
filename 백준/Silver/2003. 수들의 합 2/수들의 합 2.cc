@@ -15,33 +15,31 @@ int main()
 
     int total = 0;
     int count = 0;
-    for (int i = 0; i < n; i++)
+   
+    int left = 0;
+    int right = 0;
+
+    while (true)
     {
-        total += temp[i];
-
-        if (total == m)
+        if (total >= m)
         {
-            count++;
-            total = 0;
-            continue;
-        }
-
-        for (int j = i + 1; j < n; j++)
-        {
-            total += temp[j];
-
             if (total == m)
             {
                 count++;
-                break;
             }
-            else if (total > m)
-            {
-                break;
-            }
+
+            total -= temp[left];
+            left++;
         }
-        
-        total = 0;
+        else if (right == n)
+        {
+            break;
+        }
+        else
+        {
+            total += temp[right];
+            right++;
+        }
     }
 
     cout << count;
