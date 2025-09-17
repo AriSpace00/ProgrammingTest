@@ -6,7 +6,7 @@ using namespace std;
 
 bool solution(string question)
 {
-    stack<int> st;
+    stack<char> st;
     for (char c : question)
     {
         if (c == '(')
